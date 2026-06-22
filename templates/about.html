@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>biz haqinda  FoodMart</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            text-align: center; 
+            padding: 100px 20px; 
+            background-color: #f8f9fa; 
+        }
+        h1 { color: #333; font-size: 36px; }
+        p { color: #666; font-size: 18px; max-width: 600px; margin: 0 auto; line-height: 1.6; }
+        .btn { 
+            display: inline-block; 
+            padding: 12px 25px; 
+            background-color: #28a745; 
+            color: white; 
+            text-decoration: none; 
+            border-radius: 8px; 
+            margin-top: 30px; 
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .btn:hover { background-color: #218838; }
+    </style>
+</head>
+<body>
+    <h1>foodMart haqinda</h1>
+    <p> loyiha normal ishlayabti</p>
+    <a href="{% url 'home' %}" class="btn">bosh sahifaga qaytsh</a>
+</body>
+</html>

@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5 py-5">
+    <div class="row g-5">
+        <!-- Mahsulot rasmi -->
+        <div class="col-md-6 text-center bg-light p-4 rounded-3">
+            {% if product.image %}
+                <img src="{{ product.image.url }}" class="img-fluid rounded shadow-sm" alt="{{ product.name }}" style="max-height: 450px; object-fit: contain;">
+            {% else %}
+                <img src="{% static 'images/product-thumb-1.png' %}" class="img-fluid rounded shadow-sm" alt="Product image">
+            {% endif %}
+        </div>
+
+
+        <div class="col-md-6 d-flex flex-column justify-content-center">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'home' %}">bosh sahifa</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'shop' %}">Dokon</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ product.name }}</li>
+                </ol>
+            </nav>
+            
+            <h1 class="display-4 fw-bold text-dark mb-2">{{ product.name }}</h1>
+            <h2 class="text-success fw-bold mb-4">${{ product.price }}</h2>
+            
+            <hr>
+            
+            <p class="lead text-muted mb-4">
+                {% if product.description %}
+                    {{ product.description }}
+                {% else %}
+                    aka 2 yil boldi keganiga 
+                {% endif %}
+            </p>
+            
+
+            <form action="{% url 'add_to_cart' product.id %}" method="POST" class="row g-3 align-items-center">
+                {% csrf_token %}
+                <div class="col-auto">
+                    <label for="quantity" class="visually-hidden">Soni</label>
+                    <input type="number" name="quantity" id="quantity" value="1" min="1" max="100" class="form-control form-control-lg text-center fw-bold" style="width: 90px;">
+                </div>
+                <div class="col-auto d-grid flex-grow-1">
+                    <button type="submit" class="btn btn-primary btn-lg px-4">
+                        <i class="bi bi-cart-plus-fill me-2"></i> salafanga solamizmi?
+
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

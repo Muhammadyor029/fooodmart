@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <h2 class="fw-bold mb-4">oldigan narsayz </h2>
+        
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card shadow-sm border-0 rounded-4 mb-4">
+                    <div class="card-body p-4">
+                        {% if cart_items %}
+                            <div class="table-responsive">
+                                <table class="table align-middle">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th scope="col">mahsulot</th>
+                                            <th scope="col">narxi</th>
+                                            <th scope="col">soni</th>
+                                            <th scope="col">bir oylab korn yana aka</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for item in cart_items %}
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    {% if item.product.image %}
+                                                        <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="img-fluid rounded-3 me-3" style="width: 60px; height: 60px; object-fit: cover;">
+                                                    {% endif %}
+                                                    <h6 class="mb-0 fw-bold">{{ item.product.name }}</h6>
+                                                </div>
+                                            </td>
+                                            <td class="fw-bold text-success">${{ item.product.price }}</td>
+                                            <td>
+                                                <span class="badge bg-secondary px-3 py-2 fs-6 rounded-pill">{{ item.quantity }} ta</span>
+                                            </td>
+                                            <td>
+                                                <a href="{% url 'remove_from_cart' item.id %}" class="btn btn-outline-danger btn-sm rounded-pill shadow-sm">
+                                                    <i class="bi bi-trash"></i> O'chirish
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        {% else %}
+                            <div class="text-center py-5">
+                                <h4 class="text-muted">Savatingiz hozircha bo'sh. 😔</h4>
+                                <p>Do'konga qaytib, o'zingizga yoqqan narsalarni qo'shing!</p>
+                                <a href="{% url 'home' %}" class="btn btn-warning rounded-pill px-4 mt-2 fw-bold">Do'konga o'tish</a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card shadow-sm border-0 rounded-4 bg-light">
+                    <div class="card-body p-4">
+                        <h4 class="fw-bold border-bottom pb-3 mb-3">Umumiy Hisob</h4>
+                        
+                        <div class="d-flex justify-content-between mb-3">
+                            <span class="fs-5 text-muted">Jami to'lov:</span>
+                            <span class="fs-5 fw-bold text-success">${{ total_price }}</span>
+                        </div>
+                        
+                        <hr>
+                        
+                        {% if cart_items %}
+                        <a href="{% url 'checkout' %}" class="btn btn-success w-100 py-3 rounded-pill fw-bold fs-5 shadow-sm">
+                            Rasmiylashtirish <i class="bi bi-arrow-right-circle ms-2"></i>
+                        </a>
+                        {% else %}
+                        <button class="btn btn-secondary w-100 py-3 rounded-pill fw-bold fs-5" disabled>
+                            Savat bo'sh
+                        </button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}           
